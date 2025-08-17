@@ -1,3 +1,4 @@
+import CardContainer from "@/components/card-container";
 import GlyphCard from "@/components/glyph-card";
 
 function Home() {
@@ -27,7 +28,7 @@ function Home() {
         <input type="text" className="input" />
       </div>
 
-      <div className="flex flex-wrap gap-4">
+      <CardContainer title="中国版本">
         <GlyphCard />
         <GlyphCard />
         <GlyphCard />
@@ -38,7 +39,7 @@ function Home() {
         <GlyphCard />
         <GlyphCard />
         <GlyphCard />
-      </div>
+      </CardContainer>
     </div>
   );
 }
