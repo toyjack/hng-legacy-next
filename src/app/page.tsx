@@ -13,7 +13,7 @@ function Home() {
       <div className="text-4xl font-mono">
         すると、夜空に最初の流れ星が現れた。
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-wrap">
         <button className="btn btn-primary font-sans">primary</button>
         <button className="btn btn-secondary">secondary</button>
         <button className="btn btn-accent">accent</button>

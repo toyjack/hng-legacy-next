@@ -81,6 +81,18 @@
   box-shadow: 0 4px 8px oklch(38% 0.18 15 / 0.4);
 }
 
+/* btn ghost */
+.btn-ghost {
+  background: transparent;
+  color: oklch(98% 0.01 15);
+  box-shadow: none;
+  transition: all 0.2s ease;
+}
+
+.btn-ghost:hover {
+  background: oklch(38% 0.18 15 / 0.1);
+}
+
 /* Character cards - golden yellow background like in the results */
 .card {
   background: linear-gradient(135deg, oklch(88% 0.08 75), oklch(85% 0.12 75));

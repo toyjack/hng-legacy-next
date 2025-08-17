@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "HNG Legacy Next",
@@ -14,9 +16,13 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`antialiased md:subpixel-antialiased`}
+        className={`flex flex-col min-h-screen antialiased md:subpixel-antialiased`}
       >
-        {children}
+        <Header />
+        <main className="flex-grow container mx-auto p-1 md:p-4">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
