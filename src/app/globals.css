@@ -1,9 +1,186 @@
 @import "tailwindcss";
-
 @plugin "daisyui";
+
 @plugin "daisyui/theme" {
-  name: "hng";
+  name: "hng-kanji";
   default: true;
-  prefersdark: false;
   color-scheme: light;
+
+  /* Primary colors - Deep burgundy red from header */
+  --color-primary: oklch(38% 0.18 15);
+  --color-primary-content: oklch(98% 0.01 15);
+  
+  /* Secondary colors - Golden yellow from character cards */
+  --color-secondary: oklch(85% 0.12 75);
+  --color-secondary-content: oklch(25% 0.05 75);
+  
+  /* Accent colors - Bright red for links and highlights */
+  --color-accent: oklch(55% 0.22 25);
+  --color-accent-content: oklch(98% 0.01 25);
+  
+  /* Neutral colors - Warm scholarly grays */
+  --color-neutral: oklch(30% 0.02 15);
+  --color-neutral-content: oklch(95% 0.01 15);
+  
+  /* Base colors - Warm beige background tones */
+  --color-base-100: oklch(96% 0.02 50); /* Main background - warm beige */
+  --color-base-200: oklch(92% 0.03 50); /* Section backgrounds */
+  --color-base-300: oklch(88% 0.04 50); /* Borders and dividers */
+  --color-base-content: oklch(22% 0.02 15); /* Dark text for readability */
+  
+  /* Status colors - Harmonious with the theme */
+  --color-info: oklch(60% 0.15 220);
+  --color-info-content: oklch(98% 0.01 220);
+  
+  --color-success: oklch(55% 0.15 140);
+  --color-success-content: oklch(98% 0.01 140);
+  
+  --color-warning: oklch(70% 0.18 65);
+  --color-warning-content: oklch(15% 0.02 65);
+  
+  --color-error: oklch(55% 0.20 25);
+  --color-error-content: oklch(98% 0.01 25);
+
+  /* Border radius - Clean and modern */
+  --radius-selector: 0.375rem; /* 6px - Slightly rounded */
+  --radius-field: 0.25rem; /* 4px - Subtle rounding */
+  --radius-box: 0.5rem; /* 8px - Comfortable rounding */
+
+  /* Sizing - Balanced proportions */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  /* Border and effects */
+  --border: 1px;
+  --depth: 1; /* Subtle shadows */
+  --noise: 0; /* Clean, no texture */
+}
+
+/* Custom component styling for HNG Kanji aesthetic */
+
+/* Header styling - matches the red header */
+.navbar {
+  background: linear-gradient(135deg, oklch(38% 0.18 15), oklch(42% 0.20 18));
+  color: oklch(98% 0.01 15);
+  border: none;
+  box-shadow: 0 2px 8px oklch(38% 0.18 15 / 0.3);
+}
+
+/* Primary buttons - red theme buttons */
+.btn-primary {
+  background: linear-gradient(135deg, oklch(38% 0.18 15), oklch(42% 0.20 18));
+  border: none;
+  color: oklch(98% 0.01 15);
+  box-shadow: 0 2px 4px oklch(38% 0.18 15 / 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, oklch(42% 0.20 18), oklch(46% 0.22 20));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px oklch(38% 0.18 15 / 0.4);
+}
+
+/* Character cards - golden yellow background like in the results */
+.card {
+  background: linear-gradient(135deg, oklch(88% 0.08 75), oklch(85% 0.12 75));
+  border: 1px solid oklch(82% 0.10 75);
+  box-shadow: 0 2px 6px oklch(38% 0.18 15 / 0.1);
+  transition: all 0.2s ease;
+  /* no rounding */
+  border-radius: 0;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px oklch(38% 0.18 15 / 0.15);
+}
+
+/* Secondary cards - for non-character content */
+.card-secondary {
+  background: oklch(94% 0.02 50);
+  border: 1px solid oklch(88% 0.04 50);
+}
+
+/* Search input styling */
+.input {
+  border: 1px solid oklch(85% 0.04 50);
+  background: oklch(98% 0.01 50);
+  color: oklch(22% 0.02 15);
+}
+
+.input:focus {
+  border-color: oklch(38% 0.18 15);
+  box-shadow: 0 0 0 3px oklch(38% 0.18 15 / 0.15);
+  outline: none;
+}
+
+/* Links - red accent color like in the results */
+.link {
+  color: oklch(55% 0.22 25);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: oklch(45% 0.24 25);
+  text-decoration: underline;
+}
+
+/* Section headers */
+.section-header {
+  color: oklch(30% 0.02 15);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid oklch(85% 0.12 75);
+}
+
+/* Character grid layout */
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+/* Individual character display cards */
+.character-card {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, oklch(88% 0.08 75), oklch(85% 0.12 75));
+  border: 1px solid oklch(82% 0.10 75);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.character-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px oklch(38% 0.18 15 / 0.2);
+}
+
+.character-main {
+  font-size: 2.5rem;
+  font-weight: normal;
+  color: oklch(22% 0.02 15);
+  line-height: 1;
+}
+
+.character-info {
+  font-size: 0.75rem;
+  color: oklch(55% 0.22 25);
+  margin-top: 0.5rem;
+}
+
+/* Badges for source information */
+.badge {
+  background: oklch(55% 0.22 25);
+  color: oklch(98% 0.01 25);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
 }

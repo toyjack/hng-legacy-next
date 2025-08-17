@@ -1,3 +1,5 @@
+import GlyphCard from "@/components/glyph-card";
+
 function Home() {
   return (
     <div>
@@ -19,6 +21,23 @@ function Home() {
         <button className="btn btn-error">error</button>
         <button className="btn btn-success">success</button>
         <button className="btn btn-warning">warning</button>
+      </div>
+
+      <div>
+        <input type="text" className="input" />
+      </div>
+
+      <div className="flex flex-wrap gap-4">
+        <GlyphCard />
+        <GlyphCard />
+        <GlyphCard />
+        <GlyphCard />
+        <GlyphCard />
+        <GlyphCard />
+        <GlyphCard />
+        <GlyphCard />
+        <GlyphCard />
+        <GlyphCard />
       </div>
     </div>
   );
