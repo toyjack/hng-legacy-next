@@ -28,18 +28,50 @@ function Home() {
         <input type="text" className="input" />
       </div>
 
-      <CardContainer title="中国版本">
-        <GlyphCard />
-        <GlyphCard />
-        <GlyphCard />
-        <GlyphCard />
-        <GlyphCard />
-        <GlyphCard />
-        <GlyphCard />
-        <GlyphCard />
-        <GlyphCard />
-        <GlyphCard />
-      </CardContainer>
+      {/* name of each tab group should be unique */}
+      <div className="tabs tabs-lift">
+        <input
+          type="radio"
+          name="my_tabs_3"
+          className="tab"
+          aria-label="人"
+        />
+        <div className="tab-content bg-base-100 border-base-300 p-6">
+          <CardContainer title="中国版本">
+            <GlyphCard />
+            <GlyphCard />
+            <GlyphCard />
+            <GlyphCard />
+            <GlyphCard />
+            <GlyphCard />
+            <GlyphCard />
+            <GlyphCard />
+            <GlyphCard />
+            <GlyphCard />
+          </CardContainer>
+        </div>
+
+        <input
+          type="radio"
+          name="my_tabs_3"
+          className="tab"
+          aria-label="Tab 2"
+          defaultChecked
+        />
+        <div className="tab-content bg-base-100 border-base-300 p-6">
+          Tab content 2
+        </div>
+
+        <input
+          type="radio"
+          name="my_tabs_3"
+          className="tab"
+          aria-label="Tab 3"
+        />
+        <div className="tab-content bg-base-100 border-base-300 p-6">
+          Tab content 3
+        </div>
+      </div>
     </div>
   );
 }
