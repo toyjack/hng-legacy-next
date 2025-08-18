@@ -1,3 +1,4 @@
+import 'server-only'
 import path from "node:path";
 import { cache } from "react";
 import { parse } from "csv-parse/sync";
