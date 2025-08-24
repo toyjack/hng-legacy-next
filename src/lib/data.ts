@@ -220,7 +220,7 @@ export interface Book {
 
 export interface Results {
   query: string;
-  results: Entry[];
+  results: Entry2[];
 }
 
 export interface Glyph {
@@ -294,14 +294,14 @@ export const getAllEntries = cache(async (): Promise<Entry2[]> => {
   return entries.slice(0, 100) as Entry2[];
 });
 
-export const searchEntries = async (query: string): Promise<Results[]> => {
+export const searchEntries = async (query: string): Promise<Results> => {
   const allEntries = await getAllEntries();
   const firstCharacter = query.charAt(0);
   const filteredEntries = allEntries.filter((entry) => {
     return entry.entry == firstCharacter;
   });
 
-  return [{ query: firstCharacter, results: filteredEntries }];
+  return { query: firstCharacter, results: filteredEntries };
 };
 
 export const getBooks = cache(async (): Promise<Book[]> => {
