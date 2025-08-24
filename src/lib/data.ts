@@ -3,7 +3,7 @@ import path from "node:path";
 import { cache } from "react";
 import { parse } from "csv-parse/sync";
 import { readFile } from "node:fs/promises";
-import { csvHeaders } from "@/lib/constants";
+import { booksTsvHeaders, csvHeaders } from "@/lib/constants";
 export interface Entry {
   entry?: string;
   variant?: string;
@@ -204,6 +204,21 @@ export interface Entry {
   kkd_sample_count?: string;
 }
 
+export interface Book {
+  code?: string
+id?: string
+type2?: string
+title?: string
+type1?: string
+alias?: string
+order?: string
+year?: string
+standard?: string
+isPrivate?: string
+owner?: string
+
+}
+
 export const getEntries = cache(async (): Promise<Entry[]> => {
   const filePath = path.join(
     process.cwd(),
@@ -227,4 +242,31 @@ export const getEntries = cache(async (): Promise<Entry[]> => {
   });
 
   return entries.slice(0, 100) as Entry[];
+});
+
+export const getBooks = cache(
+  async (): Promise<Book[]> => {
+    const filePath = path.join(
+    process.cwd(),
+    "src",
+    "data",
+    "books.tsv"
+  );
+
+  const fileContent = await readFile(filePath, "utf-8");
+  const books = parse(fileContent, {
+    delimiter: "\t",
+    columns: booksTsvHeaders,
+    skip_empty_lines: true,
+    from_line: 2,
+    trim: true,
+    cast: (value, _context) => {
+      if (value === "") {
+        return undefined;
+      }
+      return value;
+    }
+  });
+
+  return books as Book[];
 });

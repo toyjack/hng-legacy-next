@@ -197,3 +197,17 @@ export const csvHeaders = [
   "kkd_shape_count",
   "kkd_sample_count",
 ] as string[];
+
+export const booksTsvHeaders = [
+  "code",
+  "id",
+  "type2",
+  "title",
+  "type1",
+  "alias",
+  "order",
+  "year",
+  "standard",
+  "isPrivate",
+  "owner",
+] as string[];
