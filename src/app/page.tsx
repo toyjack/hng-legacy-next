@@ -37,18 +37,7 @@ function Home() {
           aria-label="人"
         />
         <div className="tab-content bg-base-100 border-base-300 p-6">
-          <CardContainer title="中国版本">
-            <GlyphCard />
-            <GlyphCard />
-            <GlyphCard />
-            <GlyphCard />
-            <GlyphCard />
-            <GlyphCard />
-            <GlyphCard />
-            <GlyphCard />
-            <GlyphCard />
-            <GlyphCard />
-          </CardContainer>
+          Tab content 1
         </div>
 
         <input

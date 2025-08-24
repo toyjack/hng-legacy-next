@@ -225,6 +225,7 @@ export interface Results {
 
 export interface Glyph {
   book_id: string;
+  book_type:string;
   glyph_id: string;
   shape_count: string;
   sample_count: string;
@@ -267,31 +268,36 @@ export const getAllEntries = cache(async (): Promise<Entry2[]> => {
     },
   }) as Entry[];
 
-  entries.forEach((entry) => {
+
+  const entries2: Entry2[] = [];
+  for (const entry of entries) {
     const glyphs: Glyph[] = [];
     const entryRecord = entry as Record<string, any>;
-    Object.keys(entry).forEach((key) => {
+    for (const key of Object.keys(entry)) {
       if (key.endsWith("_id") && entryRecord[key]) {
         const book_id = key.replace("_id", "");
-        if (book_id==="djt" || book_id==="dkw") return; // 跳过djt和dkw
+        if (book_id === "djt" || book_id === "dkw") continue; // 跳过djt和dkw
         const shape_count = entryRecord[`${book_id}_shape_count`];
         const sample_count = entryRecord[`${book_id}_sample_count`];
+        const book_type = await getBookTypeById(book_id);
         glyphs.push({
           book_id,
           glyph_id: entryRecord[key],
           shape_count: shape_count || "0",
           sample_count: sample_count || "0",
+          book_type
         });
         // 删除原有的字段
         delete entryRecord[key];
         delete entryRecord[`${book_id}_shape_count`];
         delete entryRecord[`${book_id}_sample_count`];
       }
-    });
+    }
     entryRecord.glyphs = glyphs;
-  });
+    entries2.push(entryRecord as Entry2);
+  }
 
-  return entries.slice(0, 100) as Entry2[];
+  return entries2
 });
 
 export const searchEntries = async (query: string): Promise<Results> => {
@@ -336,4 +342,16 @@ export const getBookAlias = cache(async (): Promise<string[]> => {
   });
 
   return alias;
+});
+
+export const getBookTypeById = cache(async (id:string): Promise<string> => {
+  const books = await getBooks();
+  const type = books.filter((book) => book.id === id).map(book=>book.type1)[0];
+  return type || "未知";
+});
+
+export const getBookNameById = cache(async (id:string): Promise<string> => {
+  const books = await getBooks();
+  const name = books.filter((book) => book.id === id).map(book=>book.title)[0];
+  return name || "未知";
 });
