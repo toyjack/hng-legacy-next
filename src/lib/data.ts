@@ -1,4 +1,4 @@
-import 'server-only'
+import "server-only";
 import path from "node:path";
 import { cache } from "react";
 import { parse } from "csv-parse/sync";
@@ -205,21 +205,25 @@ export interface Entry {
 }
 
 export interface Book {
-  code?: string
-id?: string
-type2?: string
-title?: string
-type1?: string
-alias?: string
-order?: string
-year?: string
-standard?: string
-isPrivate?: string
-owner?: string
-
+  code?: string;
+  id?: string;
+  type2?: string;
+  title?: string;
+  type1?: string;
+  alias?: string;
+  order?: string;
+  year?: string;
+  standard?: string;
+  isPrivate?: string;
+  owner?: string;
 }
 
-export const getEntries = cache(async (): Promise<Entry[]> => {
+export interface Results {
+  query: string;
+  results: Entry[];
+}
+
+export const getAllEntries = cache(async (): Promise<Entry[]> => {
   const filePath = path.join(
     process.cwd(),
     "src",
@@ -238,20 +242,26 @@ export const getEntries = cache(async (): Promise<Entry[]> => {
         return undefined;
       }
       return value;
-    }
+    },
   });
 
-  return entries.slice(0, 100) as Entry[];
+  return entries as Entry[];
 });
 
-export const getBooks = cache(
-  async (): Promise<Book[]> => {
-    const filePath = path.join(
-    process.cwd(),
-    "src",
-    "data",
-    "books.tsv"
-  );
+export const searchEntries = async (query: string): Promise<Results[]> => {
+  const allEntries = await getAllEntries();
+  const firstCharacter = query.charAt(0);
+  const filteredEntries = allEntries.filter((entry) => {
+    return (
+      entry.entry==firstCharacter
+    );
+  });
+
+  return [{ query: firstCharacter, results: filteredEntries }];
+};
+
+export const getBooks = cache(async (): Promise<Book[]> => {
+  const filePath = path.join(process.cwd(), "src", "data", "books.tsv");
 
   const fileContent = await readFile(filePath, "utf-8");
   const books = parse(fileContent, {
@@ -265,7 +275,7 @@ export const getBooks = cache(
         return undefined;
       }
       return value;
-    }
+    },
   });
 
   return books as Book[];
