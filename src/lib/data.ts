@@ -223,7 +223,29 @@ export interface Results {
   results: Entry[];
 }
 
-export const getAllEntries = cache(async (): Promise<Entry[]> => {
+export interface Glyph {
+  book_id: string;
+  glyph_id: string;
+  shape_count: string;
+  sample_count: string;
+}
+
+export interface Entry2{
+  entry?: string;
+  variant?: string;
+  id?: string;
+  djt_id?: string;
+  dkw_id?: string;
+  radical?: string;
+  jis_char?: string;
+  jis_notes?: string;
+  ucs?: string;
+  notes?: string;
+  has_shapes?: string;
+  glyphs?: Glyph[];
+}
+
+export const getAllEntries = cache(async (): Promise<Entry2[]> => {
   const filePath = path.join(
     process.cwd(),
     "src",
@@ -243,18 +265,40 @@ export const getAllEntries = cache(async (): Promise<Entry[]> => {
       }
       return value;
     },
+  }) as Entry[];
+
+  entries.forEach((entry) => {
+    const glyphs: Glyph[] = [];
+    const entryRecord = entry as Record<string, any>;
+    Object.keys(entry).forEach((key) => {
+      if (key.endsWith("_id") && entryRecord[key]) {
+        const book_id = key.replace("_id", "");
+        if (book_id==="djt" || book_id==="dkw") return; // 跳过djt和dkw
+        const shape_count = entryRecord[`${book_id}_shape_count`];
+        const sample_count = entryRecord[`${book_id}_sample_count`];
+        glyphs.push({
+          book_id,
+          glyph_id: entryRecord[key],
+          shape_count: shape_count || "0",
+          sample_count: sample_count || "0",
+        });
+        // 删除原有的字段
+        delete entryRecord[key];
+        delete entryRecord[`${book_id}_shape_count`];
+        delete entryRecord[`${book_id}_sample_count`];
+      }
+    });
+    entryRecord.glyphs = glyphs;
   });
 
-  return entries as Entry[];
+  return entries.slice(0, 100) as Entry2[];
 });
 
 export const searchEntries = async (query: string): Promise<Results[]> => {
   const allEntries = await getAllEntries();
   const firstCharacter = query.charAt(0);
   const filteredEntries = allEntries.filter((entry) => {
-    return (
-      entry.entry==firstCharacter
-    );
+    return entry.entry == firstCharacter;
   });
 
   return [{ query: firstCharacter, results: filteredEntries }];
@@ -279,4 +323,17 @@ export const getBooks = cache(async (): Promise<Book[]> => {
   });
 
   return books as Book[];
+});
+
+export const getBookAlias = cache(async (): Promise<string[]> => {
+  const books = await getBooks();
+  const alias: string[] = [];
+
+  books.forEach((book) => {
+    if (book.alias) {
+      alias.push(book.alias);
+    }
+  });
+
+  return alias;
 });
