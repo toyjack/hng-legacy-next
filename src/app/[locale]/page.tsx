@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import HelpSection from '@/components/help-section';
+import {getTranslations} from 'next-intl/server';
 
 // Main component for the landing page
-export default function HomePage() {
+export default async function HomePage() {
+  const t = await getTranslations();
   return (
     <div className="space-y-16 my-8">
       {/* Hero Section */}
@@ -15,6 +17,8 @@ export default function HomePage() {
             <Link href="/query" className="btn btn-primary btn-lg">
               検索ページへ
             </Link>
+
+            {t("hello")}
           </div>
         </div>
       </div>
