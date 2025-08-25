@@ -4,6 +4,8 @@ import { BookTypeList } from "@/lib/constants";
 import { getBookNameById, searchEntries } from "@/lib/data";
 import React from "react";
 
+// TODO: refactor to static page
+
 async function QueryEntryPage({
   params,
 }: {
