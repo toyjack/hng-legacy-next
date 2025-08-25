@@ -13,7 +13,7 @@
   "lengthOfResults": "结果数量",
   "postfixOfLengthOfSearchResult": "条结果被找到",
   "foundMultipleResults": "找到多个结果。点击ID进行切换。",
-  "entry": "词条",
+  "entry": "字头",
   "variant": "异体字",
   "infoOfDict": "字典信息",
   "radical": "部首",
@@ -34,5 +34,6 @@
   "aliasOfBook": "简称",
   "yearOfBook": "编制年代",
   "standardOfBook": "标准",
-  "privateOfBook": "公/私"
+  "privateOfBook": "公/私",
+  "search": "检索"
 }

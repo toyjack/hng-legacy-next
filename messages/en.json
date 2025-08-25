@@ -34,5 +34,6 @@
   "aliasOfBook": "Abbreviation",
   "yearOfBook": "Year of Creation",
   "standardOfBook": "Standard",
-  "privateOfBook": "Public/Private"
+  "privateOfBook": "Public/Private",
+  "search": "Search"
 }

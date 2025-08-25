@@ -4,6 +4,7 @@ import { useState, forwardRef, KeyboardEvent } from 'react';
 import { SearchInputProps } from '@/types/components';
 import { cn } from '@/lib/utils';
 import Button from './button';
+import { useTranslations } from 'next-intl';
 
 const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
   (
@@ -13,12 +14,13 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
       loading = false,
       variant = 'bordered',
       size = 'md',
-      placeholder = '検索',
+      placeholder = "",
       ...props
     },
     ref
   ) => {
     const [query, setQuery] = useState('');
+    const t = useTranslations();
 
     const handleSubmit = () => {
       if (query.trim()) {
@@ -74,7 +76,7 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
           loading={loading}
           disabled={!query.trim()}
         >
-          検索
+          {t('search')}
         </Button>
       </div>
     );
