@@ -17,6 +17,7 @@ export interface CardContainerProps extends BaseComponentProps {
 // 字形卡片属性
 export interface GlyphCardProps {
   cardTitle: string;
+  cardTitleUrl?: string;
   imgSrc: string;
   sampleCount?: string;
   className?: string;

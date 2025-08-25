@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import { GlyphCardProps } from "@/types/components";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 function GlyphCard({
   cardTitle,
+  cardTitleUrl,
   imgSrc,
   sampleCount,
   className,
@@ -41,7 +43,14 @@ function GlyphCard({
           className="card-title text-xs font-medium leading-tight"
           title={cardTitle}
         >
-          {cardTitle}
+          {/* if cardTitleUrl is provided, use it */}
+          {cardTitleUrl ? (
+            <Link href={cardTitleUrl} className="link link-hover">
+              {cardTitle}
+            </Link>
+          ) : (
+            cardTitle
+          )}
         </h2>
       </div>
 

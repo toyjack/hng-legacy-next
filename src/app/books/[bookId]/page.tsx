@@ -24,6 +24,7 @@ async function BookItemPage({
           <GlyphCard
             key={entry.id}
             cardTitle={entry.entry || ""}
+            cardTitleUrl={`/query/${entry.entry}`}
             imgSrc={`/images/${entry.glyphs?.[0]?.book_id}/${entry.glyphs?.[0]?.glyph_id}.png`}
           />
         ))}
