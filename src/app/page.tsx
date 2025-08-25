@@ -1,24 +1,9 @@
-import { getAllEntries, getItaiji } from "@/lib/data";
+import React from 'react';
 
-async function Home() {
-  const itaiji = await getItaiji();
-  const all = await getAllEntries();
+export default function LandingPage() {
   return (
-    <div>
-      {itaiji.slice(0,10).map((entry) => (
-        <div key={entry}>
-          {entry}
-        </div>
-      ))}
-
-      <div>
-        {all.slice(0,100).map((entry) => (
-          <div key={entry.id}>
-            {entry.entry} - {entry.variant} 
-          </div>
-        ))}
-      </div>
+    <div className="">
+  
     </div>
   );
 }
-export default Home;
