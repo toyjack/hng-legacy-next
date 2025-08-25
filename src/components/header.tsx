@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import { HeaderProps } from "@/types/components";
 import SearchInput from "./ui/search-input";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 function Header({
-  title = "HNG単字検索",
   showSearch = true,
   searchProps = {},
   className,
@@ -20,8 +20,10 @@ function Header({
     }
   };
 
-  const navbarClasses = cn("navbar bg-base-100 shadow-sm", className);
+  const t = useTranslations();
 
+  const navbarClasses = cn("navbar bg-base-100 shadow-sm", className);
+  const title = t("navbarTitle");
   return (
     <div className={navbarClasses}>
       <div className="navbar-start">
@@ -33,15 +35,15 @@ function Header({
       <div className="navbar-end">
         {" "}
         <Link className="btn btn-ghost btn-sm" href="/books">
-          資料一覧
+          {t("bookList")}
         </Link>
         <Link className="btn btn-ghost btn-sm hidden md:flex" href="/#help">
-          使い方
+          {t("helpBtn")}
         </Link>
         {showSearch && (
           <SearchInput
             onSearch={handleSearch}
-            placeholder="文字を入力"
+            placeholder={t("inputText")}
             size="sm"
             {...searchProps}
           />

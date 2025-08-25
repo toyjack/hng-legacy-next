@@ -1,23 +1,25 @@
 import { getBooks } from "@/lib/data";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
 async function BooksIndex() {
   const allBooks = await getBooks();
+  const t = await getTranslations()
   return (
     <div>
-      <h1 className="text-4xl font-bold py-2">資料一覧</h1>
+      <h1 className="text-4xl font-bold py-2">{t('bookList')}</h1>
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
           <thead>
             <tr>
               <th>No.(Code)</th>
               <th>ID</th>
-              <th>区分</th>
-              <th>文献名 </th>
-              <th>略称</th>
-              <th>作成年代</th>
-              <th>標準</th>
-              <th>公／私</th>
+              <th>{t('kubun')}</th>
+              <th>{t('titleOfBook')} </th>
+              <th>{t('aliasOfBook')}</th>
+              <th>{t('yearOfBook')}</th>
+              <th>{t('standardOfBook')}</th>
+              <th>{t('privateOfBook')}</th>
             </tr>
           </thead>
           <tbody>

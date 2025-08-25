@@ -3,6 +3,7 @@ import GlyphCard from "@/components/glyph-card";
 import { BookTypeList } from "@/lib/constants";
 import { getBookNameById, searchEntries } from "@/lib/data";
 import type { BookTypeComponent, CharacterEntry } from "@/types/data";
+import { getTranslations } from "next-intl/server";
 import React from "react";
 
 // TODO: refactor to static page
@@ -15,6 +16,7 @@ async function QueryEntryPage({
   const { entryChar } = await params;
   const decodedChar = decodeURIComponent(entryChar);
   const results = await searchEntries(decodedChar);
+  const t = await getTranslations();
 
   // 预处理所有需要显示的组件
   const processedResults = await Promise.all(
@@ -61,21 +63,23 @@ async function QueryEntryPage({
     <div className="max-w-7xl mx-auto md:p-4">
       {/* 搜索结果标题 */}
       <div className="mb-8 text-center">
-        <h2 className="text-3xl font-bold mb-4">検索結果</h2>
+        <h2 className="text-3xl font-bold mb-4">{t("searchResults")}</h2>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <div className="stats shadow">
             <div className="stat place-items-center">
-              <div className="stat-title">検索字</div>
+              <div className="stat-title">{t("term")}</div>
               <div className="stat-value text-primary text-5xl">
                 {decodedChar}
               </div>
             </div>
             <div className="stat place-items-center">
-              <div className="stat-title">結果件数</div>
+              <div className="stat-title">{t("lengthOfResults")}</div>
               <div className="stat-value text-secondary">
                 {results.results.length}
               </div>
-              <div className="stat-desc">件の結果が見つかりました</div>
+              <div className="stat-desc">
+                {t("postfixOfLengthOfSearchResult")}
+              </div>
             </div>
           </div>
         </div>
@@ -86,7 +90,7 @@ async function QueryEntryPage({
         <div className="w-full mb-8">
           <div className="flex items-center justify-center mb-4">
             <div className="badge badge-info badge-lg">
-              複数の結果が見つかりました。IDをクリックして切り替えてください。
+              {t("foundMultipleResults")}
             </div>
           </div>
 
@@ -131,20 +135,22 @@ async function QueryEntryPage({
 }
 
 // 提取字符结果显示组件
-function CharacterResult({
+async function CharacterResult({
   result,
   bookTypeComponents,
 }: {
   result: CharacterEntry;
   bookTypeComponents: BookTypeComponent[];
 }) {
+  const t = await getTranslations();
+
   return (
     <>
       {/* 字符基本信息 */}
       <div className="stats stats-vertical lg:stats-horizontal shadow-sm bg-base-100 mb-6">
         {result.entry && (
           <div className="stat">
-            <div className="stat-title">見出し</div>
+            <div className="stat-title">{t("entry")}</div>
             <div className="stat-value text-primary text-4xl">
               {result.entry}
             </div>
@@ -153,7 +159,7 @@ function CharacterResult({
 
         {result.variant && (
           <div className="stat">
-            <div className="stat-title">異体字</div>
+            <div className="stat-title">{t("variant")}</div>
             <div className="stat-value text-2xl">{result.variant}</div>
           </div>
         )}
@@ -175,23 +181,29 @@ function CharacterResult({
         {/* 字典信息 */}
         <div className="card bg-base-100 shadow-sm">
           <div className="card-body">
-            <h3 className="card-title text-lg">字典情報</h3>
+            <h3 className="card-title text-lg">{t("infoOfDict")}</h3>
             <div className="space-y-3">
               {result.radical && (
                 <div className="flex items-center gap-2">
-                  <span className="badge badge-soft badge-secondary">部首</span>
+                  <span className="badge badge-soft badge-secondary">
+                    {t("radical")}
+                  </span>
                   <span>{result.radical}</span>
                 </div>
               )}
               {result.djt_id && (
                 <div className="flex items-center gap-2">
-                  <span className="badge badge-soft badge-info">大字典</span>
+                  <span className="badge badge-soft badge-info">
+                    {t("djt")}
+                  </span>
                   <span className="font-mono">{result.djt_id}</span>
                 </div>
               )}
               {result.dkw_id && (
                 <div className="flex items-center gap-2">
-                  <span className="badge badge-soft badge-success">大漢和</span>
+                  <span className="badge badge-soft badge-success">
+                    {t("dkw")}
+                  </span>
                   <span className="font-mono">{result.dkw_id}</span>
                 </div>
               )}
@@ -202,26 +214,28 @@ function CharacterResult({
         {/* 技术信息 */}
         <div className="card bg-base-100 shadow-sm">
           <div className="card-body">
-            <h3 className="card-title text-lg">文字コード</h3>
+            <h3 className="card-title text-lg">{t("characterCode")}</h3>
             <div className="space-y-3">
               {result.jis_char && (
                 <div className="flex items-center gap-2">
                   <span className="badge badge-soft badge-warning">
-                    JIS字形
+                    {t("jisShape")}
                   </span>
                   <span>{result.jis_char}</span>
                 </div>
               )}
               {result.ucs && (
                 <div className="flex items-center gap-2">
-                  <span className="badge badge-soft badge-accent">Unicode</span>
+                  <span className="badge badge-soft badge-accent">
+                    {t("unicode")}
+                  </span>
                   <span className="font-mono">{result.ucs}</span>
                 </div>
               )}
               {result.has_shapes && (
                 <div className="flex items-center gap-2">
                   <span className="badge badge-soft badge-neutral">
-                    字体あり
+                    {t("hasShapes")}
                   </span>
                   <span>{result.has_shapes}</span>
                 </div>
@@ -235,12 +249,12 @@ function CharacterResult({
       {(result.jis_notes || result.notes) && (
         <div className="card bg-base-100 shadow-sm mb-6">
           <div className="card-body">
-            <h3 className="card-title text-lg">ノート</h3>
+            <h3 className="card-title text-lg">{t("notes")}</h3>
             <div className="space-y-3">
               {result.jis_notes && (
                 <div>
                   <div className="badge badge-outline badge-sm mb-2">
-                    字形ノート
+                    {t("glyphNotes")}
                   </div>
                   <p className="text-sm text-base-content/80">
                     {result.jis_notes}
@@ -250,7 +264,7 @@ function CharacterResult({
               {result.notes && (
                 <div>
                   <div className="badge badge-outline badge-sm mb-2">
-                    一般ノート
+                    {t("normalNotes")}
                   </div>
                   <p className="text-sm text-base-content/80">{result.notes}</p>
                 </div>
@@ -264,15 +278,15 @@ function CharacterResult({
       {bookTypeComponents.length > 0 && (
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-4">
-            <h3 className="text-xl font-bold">字形一覧</h3>
+            <h3 className="text-xl font-bold">{t("listOfGlyphs")}</h3>
             <div className="badge badge-outline">
-              合計
+              {t("summary")}
               {bookTypeComponents.reduce(
                 (total, category) =>
                   total + (category?.glyphCards?.length || 0),
                 0
               )}
-              件
+              {t("ken")}
             </div>
           </div>
 
