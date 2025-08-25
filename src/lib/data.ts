@@ -272,7 +272,7 @@ export const getAllEntries = cache(async (): Promise<Entry2[]> => {
   const entries2: Entry2[] = [];
   for (const entry of entries) {
     const glyphs: Glyph[] = [];
-    const entryRecord = entry as Record<string, any>;
+    const entryRecord = entry as Entry2 & Record<string, string>;
     for (const key of Object.keys(entry)) {
       if (key.endsWith("_id") && entryRecord[key]) {
         const book_id = key.replace("_id", "");

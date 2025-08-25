@@ -78,22 +78,23 @@ async function QueryEntryPage({
           <div>
             {/* 字形 */}
             <div>字形一覧:</div>
-            {bookTypeComponents.map((category) => (
-              <CardContainer title={category.categoryName} key={category.categoryId}>
-                {category.glyphCards.map((cardData) => (
-                  <GlyphCard
-                    key={cardData.key}
-                    cardTitle={cardData.cardTitle}
-                    imgSrc={cardData.imgSrc}
-                    sampleCount={cardData.sampleCount}
-                  />
-                ))}
-              </CardContainer>
-            ))}
+            {bookTypeComponents.map((category) => 
+              category && (
+                <CardContainer title={category.categoryName} key={category.categoryId}>
+                  {category.glyphCards.map((cardData) => (
+                    <GlyphCard
+                      key={cardData.key}
+                      cardTitle={cardData.cardTitle}
+                      imgSrc={cardData.imgSrc}
+                      sampleCount={cardData.sampleCount}
+                    />
+                  ))}
+                </CardContainer>
+              )
+            )}
           </div>
         </React.Fragment>
       ))}
-      {/* <pre>{JSON.stringify(results, null, 2)}</pre> */}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Component, ReactNode } from 'react';
+import React, { Component } from 'react';
 import { ErrorBoundaryProps } from '@/types/components';
 
 interface ErrorBoundaryState {

@@ -1,6 +1,3 @@
-import CardContainer from "@/components/card-container";
-import GlyphCard from "@/components/glyph-card";
-
 function Home() {
   return (
     <div>

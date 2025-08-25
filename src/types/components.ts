@@ -39,7 +39,7 @@ export interface TabContainerProps extends BaseComponentProps {
 }
 
 // 搜索组件属性
-export interface SearchInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+export interface SearchInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'size'> {
   onSearch: (query: string) => void;
   loading?: boolean;
   variant?: 'default' | 'bordered' | 'ghost';
