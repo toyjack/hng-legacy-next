@@ -31,14 +31,14 @@ git clone https://github.com/your-username/hng-legacy-next.git
 cd hng-legacy-next
 
 # 依存関係をインストール
-npm install
+pnpm install
 ```
 
 ## 開発
 
 ```bash
 # 開発サーバーを起動（Turbopack使用）
-npm run dev
+pnpm run dev
 
 # ブラウザでアクセス
 # http://localhost:3000
@@ -48,13 +48,13 @@ npm run dev
 
 ```bash
 # プロダクション用ビルド
-npm run build
+pnpm run build
 
 # プロダクションサーバー起動
-npm start
+pnpm start
 
 # コード品質チェック
-npm run lint
+pnpm run lint
 ```
 
 ## プロジェクト構造
@@ -134,7 +134,7 @@ src/
 
 ## 開発チーム
 
-- **メンテナー**: [あなたの名前]
+- **メンテナー**: Guanwei Liu
 - **コントリビューター**: [GitHub Contributors](https://github.com/your-username/hng-legacy-next/contributors) をご覧ください
 
 ## サポート
