@@ -229,3 +229,17 @@ export const getItaiji = cache(async (): Promise<string[]> => {
   });
   return itaiji;
 });
+
+
+export const getBookById = cache(async (id: string): Promise<BookMetadata | null> => {
+  const books = await getBooks();
+  return books.find(book => book.id === id) || null;
+}); 
+
+
+export const getEntriesByBookID = cache(async (bookId: string): Promise<CharacterEntry[]> => {
+  const allEntries = await getAllEntries();
+  return allEntries.filter(entry => {
+    return entry.glyphs?.some(glyph => glyph.book_id === bookId);
+  });
+});

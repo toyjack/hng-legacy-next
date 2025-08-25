@@ -61,9 +61,11 @@ function GlyphCard({
         )}
       </figure>
 
-      <div className="p-2 bg-base-100 w-full">
-        <p className="text-center text-xs font-medium">{sampleCount}例</p>
-      </div>
+      {sampleCount && (
+        <div className="absolute top-1 right-1 bg-black bg-opacity-50 text-white text-xs px-1 rounded">
+          {sampleCount}
+        </div>
+      )}
     </div>
   );
 }

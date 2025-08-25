@@ -18,7 +18,7 @@ export interface CardContainerProps extends BaseComponentProps {
 export interface GlyphCardProps {
   cardTitle: string;
   imgSrc: string;
-  sampleCount: string;
+  sampleCount?: string;
   className?: string;
   onImageClick?: () => void;
   onImageError?: (error: Event) => void;
