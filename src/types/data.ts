@@ -246,3 +246,14 @@ export interface SearchResults {
   query: string;
   results: CharacterEntry[];
 }
+
+export interface BookTypeComponent {
+  categoryName: string;
+  categoryId: string;
+  glyphCards: {
+    key: string;
+    cardTitle: string;
+    imgSrc: string;
+    sampleCount: string;
+  }[];
+}
