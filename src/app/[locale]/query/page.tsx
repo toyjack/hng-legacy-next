@@ -1,6 +1,10 @@
-function QueryIndexPage() {
-  return (
-    <div>QueryIndexPage</div>
-  )
+import { routing } from "@/i18n/routing";
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
 }
-export default QueryIndexPage
+
+function QueryIndexPage() {
+  return <div>QueryIndexPage</div>;
+}
+export default QueryIndexPage;

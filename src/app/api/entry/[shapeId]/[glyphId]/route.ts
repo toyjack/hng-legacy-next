@@ -1,7 +1,7 @@
 import { getEntryById } from "@/lib/data";
 import { NextResponse } from "next/server";
 
-export async function GET( { params }: { params: Promise<{ shapeId: string, glyphId: string }> }) {
+export async function GET( _request:Request,{ params }: { params: Promise<{ shapeId: string, glyphId: string }> }) {
   const { shapeId, glyphId } = await params;
 
   // Fetch the entry from the database
