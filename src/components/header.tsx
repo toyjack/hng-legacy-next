@@ -1,16 +1,16 @@
 "use client";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { HeaderProps } from '@/types/components';
-import SearchInput from './ui/search-input';
-import { cn } from '@/lib/utils';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { HeaderProps } from "@/types/components";
+import SearchInput from "./ui/search-input";
+import { cn } from "@/lib/utils";
 
-function Header({ 
-  title = 'HNG単字検索',
+function Header({
+  title = "HNG単字検索",
   showSearch = true,
   searchProps = {},
-  className 
+  className,
 }: HeaderProps) {
   const router = useRouter();
 
@@ -20,21 +20,24 @@ function Header({
     }
   };
 
-  const navbarClasses = cn(
-    'navbar bg-base-100 shadow-sm',
-    className
-  );
+  const navbarClasses = cn("navbar bg-base-100 shadow-sm", className);
 
   return (
     <div className={navbarClasses}>
-      <div className="flex-1">
+      <div className="navbar-start">
         <Link className="btn btn-ghost text-xl font-bold" href="/">
-          
           <span className="hidden sm:inline">{title}</span>
-          <span className="sm:hidden">{title.slice(0,3)}</span>
+          <span className="sm:hidden">{title.slice(0, 3)}</span>
         </Link>
       </div>
-      <div className="flex gap-2 items-center">
+      <div className="navbar-end">
+        {" "}
+        <Link className="btn btn-ghost btn-sm" href="/books">
+          資料一覧
+        </Link>
+        <Link className="btn btn-ghost btn-sm hidden md:flex" href="/#help">
+          使い方
+        </Link>
         {showSearch && (
           <SearchInput
             onSearch={handleSearch}
@@ -43,12 +46,6 @@ function Header({
             {...searchProps}
           />
         )}
-        <Link 
-          className="btn btn-ghost btn-sm hidden md:flex" 
-          href="/#help"
-        >
-          使い方
-        </Link>
       </div>
     </div>
   );

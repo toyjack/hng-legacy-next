@@ -5,7 +5,7 @@ async function BooksIndex() {
   const allBooks = await getBooks();
   return (
     <div>
-      <h1>All Books</h1>
+      <h1>資料一覧</h1>
       <table className="table table-zebra w-full">
         <thead>
           <tr>
