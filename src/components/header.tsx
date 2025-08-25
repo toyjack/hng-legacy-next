@@ -29,7 +29,9 @@ function Header({
     <div className={navbarClasses}>
       <div className="flex-1">
         <Link className="btn btn-ghost text-xl font-bold" href="/">
-          {title}
+          
+          <span className="hidden sm:inline">{title}</span>
+          <span className="sm:hidden">{title.slice(0,3)}</span>
         </Link>
       </div>
       <div className="flex gap-2 items-center">

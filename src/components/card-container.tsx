@@ -1,31 +1,32 @@
-import { CardContainerProps } from '@/types/components';
-import { cn } from '@/lib/utils';
+import { CardContainerProps } from "@/types/components";
+import { cn } from "@/lib/utils";
 
-function CardContainer({ 
-  title, 
-  children, 
-  variant = 'default',
-  size = 'md',
-  className 
+function CardContainer({
+  title,
+  count,
+  children,
+  variant = "default",
+  size = "md",
+  className,
 }: CardContainerProps) {
-  const baseClasses = 'shadow-md p-4 mb-4 rounded-lg';
-  
+  const baseClasses = "shadow-md md:p-4 mb-4 rounded-lg";
+
   const variants = {
-    default: 'bg-base-200',
-    outlined: 'bg-base-100 border border-base-300',
-    filled: 'bg-base-300',
+    default: "bg-base-200",
+    outlined: "bg-base-100 border border-base-300",
+    filled: "bg-base-300",
   };
 
   const sizes = {
-    sm: 'p-2 mb-2',
-    md: 'p-4 mb-4',
-    lg: 'p-6 mb-6',
+    sm: "p-2 mb-2",
+    md: "p-4 mb-4",
+    lg: "p-6 mb-6",
   };
 
   const titleSizes = {
-    sm: 'text-lg py-1 md:py-2',
-    md: 'text-2xl py-2 md:py-4',
-    lg: 'text-3xl py-3 md:py-5',
+    sm: "text-lg py-1 md:py-2",
+    md: "text-2xl py-2 md:py-4",
+    lg: "text-3xl py-3 md:py-5",
   };
 
   const containerClasses = cn(
@@ -37,9 +38,10 @@ function CardContainer({
 
   return (
     <div className={containerClasses}>
-      <h4 className={cn('font-bold', titleSizes[size])}>
-        {title}
-      </h4>
+      <div className="flex items-center gap-3">
+        <h4 className={cn("font-bold", titleSizes[size])}> {title}</h4>
+        <div className="badge badge-soft badge-primary">{count}件</div>
+      </div>
       <div className="flex overflow-x-auto md:flex-wrap gap-2 md:gap-4">
         {children}
       </div>

@@ -45,7 +45,7 @@ function GlyphCard({
         </h2>
       </div>
 
-      <figure className="relative min-h-16 bg-base-200">
+      <figure className="relative min-w-32 bg-base-200">
         {!imageError ? (
           <img
             className="w-full h-auto"

@@ -21,8 +21,9 @@ async function QueryEntryPage({
     results.results.map(async (result) => {
       const bookTypeComponentsWithNulls = await Promise.all(
         BookTypeList.map(async (item) => {
-          const filteredGlyphs = result.glyphs?.filter((glyph) => glyph.book_type === item.id) || [];
-          
+          const filteredGlyphs =
+            result.glyphs?.filter((glyph) => glyph.book_type === item.id) || [];
+
           if (filteredGlyphs.length === 0) {
             return null;
           }
@@ -44,7 +45,10 @@ async function QueryEntryPage({
         })
       );
 
-      const bookTypeComponents: BookTypeComponent[] = bookTypeComponentsWithNulls.filter((item): item is BookTypeComponent => item !== null);
+      const bookTypeComponents: BookTypeComponent[] =
+        bookTypeComponentsWithNulls.filter(
+          (item): item is BookTypeComponent => item !== null
+        );
 
       return {
         result,
@@ -54,7 +58,7 @@ async function QueryEntryPage({
   );
 
   return (
-    <div className="max-w-7xl mx-auto p-4">
+    <div className="max-w-7xl mx-auto md:p-4">
       {/* 搜索结果标题 */}
       <div className="mb-8 text-center">
         <h2 className="text-3xl font-bold mb-4">検索結果</h2>
@@ -62,11 +66,15 @@ async function QueryEntryPage({
           <div className="stats shadow">
             <div className="stat place-items-center">
               <div className="stat-title">検索字</div>
-              <div className="stat-value text-primary text-5xl">{decodedChar}</div>
+              <div className="stat-value text-primary text-5xl">
+                {decodedChar}
+              </div>
             </div>
             <div className="stat place-items-center">
               <div className="stat-title">結果件数</div>
-              <div className="stat-value text-secondary">{results.results.length}</div>
+              <div className="stat-value text-secondary">
+                {results.results.length}
+              </div>
               <div className="stat-desc">件の結果が見つかりました</div>
             </div>
           </div>
@@ -81,7 +89,7 @@ async function QueryEntryPage({
               複数の結果が見つかりました。IDをクリックして切り替えてください。
             </div>
           </div>
-          
+
           <div className="tabs tabs-lift tabs-lg w-full">
             {processedResults.map(({ result }, index) => (
               <React.Fragment key={result.id || index}>
@@ -101,9 +109,11 @@ async function QueryEntryPage({
                   </span>
                 </label>
                 <div className="tab-content bg-base-100 border-base-300 p-6">
-                  <CharacterResult 
-                    result={result} 
-                    bookTypeComponents={processedResults[index].bookTypeComponents} 
+                  <CharacterResult
+                    result={result}
+                    bookTypeComponents={
+                      processedResults[index].bookTypeComponents
+                    }
                   />
                 </div>
               </React.Fragment>
@@ -111,9 +121,9 @@ async function QueryEntryPage({
           </div>
         </div>
       ) : processedResults.length > 0 ? (
-        <CharacterResult 
-          result={processedResults[0].result} 
-          bookTypeComponents={processedResults[0].bookTypeComponents} 
+        <CharacterResult
+          result={processedResults[0].result}
+          bookTypeComponents={processedResults[0].bookTypeComponents}
         />
       ) : null}
     </div>
@@ -121,9 +131,12 @@ async function QueryEntryPage({
 }
 
 // 提取字符结果显示组件
-function CharacterResult({ result, bookTypeComponents }: {
+function CharacterResult({
+  result,
+  bookTypeComponents,
+}: {
   result: CharacterEntry;
-  bookTypeComponents: any[];
+  bookTypeComponents: BookTypeComponent[];
 }) {
   return (
     <>
@@ -132,10 +145,12 @@ function CharacterResult({ result, bookTypeComponents }: {
         {result.entry && (
           <div className="stat">
             <div className="stat-title">見出し</div>
-            <div className="stat-value text-primary text-4xl">{result.entry}</div>
+            <div className="stat-value text-primary text-4xl">
+              {result.entry}
+            </div>
           </div>
         )}
-        
+
         {result.variant && (
           <div className="stat">
             <div className="stat-title">異体字</div>
@@ -147,7 +162,9 @@ function CharacterResult({ result, bookTypeComponents }: {
           <div className="stat">
             <div className="stat-title">ID</div>
             <div className="stat-value text-lg font-mono">
-              <span className="badge badge-outline badge-primary">{result.id}</span>
+              <span className="badge badge-outline badge-primary">
+                {result.id}
+              </span>
             </div>
           </div>
         )}
@@ -185,11 +202,13 @@ function CharacterResult({ result, bookTypeComponents }: {
         {/* 技术信息 */}
         <div className="card bg-base-100 shadow-sm">
           <div className="card-body">
-            <h3 className="card-title text-lg">技術情報</h3>
+            <h3 className="card-title text-lg">文字コード</h3>
             <div className="space-y-3">
               {result.jis_char && (
                 <div className="flex items-center gap-2">
-                  <span className="badge badge-soft badge-warning">JIS字形</span>
+                  <span className="badge badge-soft badge-warning">
+                    JIS字形
+                  </span>
                   <span>{result.jis_char}</span>
                 </div>
               )}
@@ -201,7 +220,9 @@ function CharacterResult({ result, bookTypeComponents }: {
               )}
               {result.has_shapes && (
                 <div className="flex items-center gap-2">
-                  <span className="badge badge-soft badge-neutral">字体あり</span>
+                  <span className="badge badge-soft badge-neutral">
+                    字体あり
+                  </span>
                   <span>{result.has_shapes}</span>
                 </div>
               )}
@@ -210,7 +231,7 @@ function CharacterResult({ result, bookTypeComponents }: {
         </div>
       </div>
 
-      {/* 注记信息 */}
+      {/* 字形情報 */}
       {(result.jis_notes || result.notes) && (
         <div className="card bg-base-100 shadow-sm mb-6">
           <div className="card-body">
@@ -218,13 +239,19 @@ function CharacterResult({ result, bookTypeComponents }: {
             <div className="space-y-3">
               {result.jis_notes && (
                 <div>
-                  <div className="badge badge-outline badge-sm mb-2">字形ノート</div>
-                  <p className="text-sm text-base-content/80">{result.jis_notes}</p>
+                  <div className="badge badge-outline badge-sm mb-2">
+                    字形ノート
+                  </div>
+                  <p className="text-sm text-base-content/80">
+                    {result.jis_notes}
+                  </p>
                 </div>
               )}
               {result.notes && (
                 <div>
-                  <div className="badge badge-outline badge-sm mb-2">一般ノート</div>
+                  <div className="badge badge-outline badge-sm mb-2">
+                    一般ノート
+                  </div>
                   <p className="text-sm text-base-content/80">{result.notes}</p>
                 </div>
               )}
@@ -239,39 +266,44 @@ function CharacterResult({ result, bookTypeComponents }: {
           <div className="flex items-center gap-3 mb-4">
             <h3 className="text-xl font-bold">字形一覧</h3>
             <div className="badge badge-outline">
-              {bookTypeComponents.reduce((total, category) => 
-                total + (category?.glyphCards?.length || 0), 0
-              )}種類
+              合計
+              {bookTypeComponents.reduce(
+                (total, category) =>
+                  total + (category?.glyphCards?.length || 0),
+                0
+              )}
+              件
             </div>
           </div>
-          
-          <div className="grid gap-6">
-            {bookTypeComponents.map((category) => 
-              category && (
-                <div key={category.categoryId} className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <h4 className="text-lg font-semibold">{category.categoryName}</h4>
-                    <div className="badge badge-soft badge-primary">
-                      {category.glyphCards.length}例
-                    </div>
+
+          <div className="flex flex-col gap-6">
+            {bookTypeComponents.map(
+              (category) =>
+                category && (
+                  <div key={category.categoryId} className="space-y-3">
+                    <CardContainer
+                      title={category.categoryName}
+                      count={category.glyphCards.length}
+                      key={category.categoryId}
+                    >
+                      {category.glyphCards.map(
+                        (cardData: {
+                          key: string;
+                          cardTitle: string;
+                          imgSrc: string;
+                          sampleCount: string;
+                        }) => (
+                          <GlyphCard
+                            key={cardData.key}
+                            cardTitle={cardData.cardTitle}
+                            imgSrc={cardData.imgSrc}
+                            sampleCount={cardData.sampleCount}
+                          />
+                        )
+                      )}
+                    </CardContainer>
                   </div>
-                  <CardContainer title="" key={category.categoryId}>
-                    {category.glyphCards.map((cardData: {
-                      key: string;
-                      cardTitle: string;
-                      imgSrc: string;
-                      sampleCount: string;
-                    }) => (
-                      <GlyphCard
-                        key={cardData.key}
-                        cardTitle={cardData.cardTitle}
-                        imgSrc={cardData.imgSrc}
-                        sampleCount={cardData.sampleCount}
-                      />
-                    ))}
-                  </CardContainer>
-                </div>
-              )
+                )
             )}
           </div>
         </div>

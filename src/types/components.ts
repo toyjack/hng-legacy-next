@@ -9,6 +9,7 @@ export interface BaseComponentProps {
 // 卡片容器属性
 export interface CardContainerProps extends BaseComponentProps {
   title: string;
+  count: number;
   variant?: 'default' | 'outlined' | 'filled';
   size?: 'sm' | 'md' | 'lg';
 }
