@@ -46,6 +46,13 @@ export const getAllEntries = cache(async (): Promise<CharacterEntry[]> => {
   return rawEntries.map(rawEntry => transformEntry(rawEntry, bookTypeMap, itaijiMap));
 });
 
+export async function getEntryById(id: string | null | undefined): Promise<CharacterEntry | null> {
+  if (!id) return null;
+
+  const allEntries = await getAllEntries();
+  return allEntries.find(entry => entry.id === id) || null;
+};
+
 // 构建异体字查找映射表
 function buildItaijiMap(itaijiList: string[]): Map<string, Set<string>> {
   const map = new Map<string, Set<string>>();
