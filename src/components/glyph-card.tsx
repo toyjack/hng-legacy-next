@@ -1,36 +1,27 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
-import { GlyphCardProps } from '@/types/components';
-import { cn, handleImageError } from '@/lib/utils';
+import { useState, useEffect } from "react";
+import { GlyphCardProps } from "@/types/components";
+import { cn } from "@/lib/utils";
 
-function GlyphCard({ 
-  cardTitle, 
-  imgSrc, 
-  sampleCount, 
+function GlyphCard({
+  cardTitle,
+  imgSrc,
+  sampleCount,
   className,
   onImageClick,
   onImageError,
-  loading = 'lazy'
+  loading = "lazy",
 }: GlyphCardProps) {
-  const [imageLoading, setImageLoading] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout>();
 
   // 当图片路径变化时重置状态
   useEffect(() => {
-    setImageLoading(false);
     setImageError(false);
   }, [imgSrc]);
 
-  const handleImageLoad = () => {
-    console.log('Image loaded successfully:', imgSrc);
-    setImageLoading(false);
-  };
-
   const handleError = (event: React.SyntheticEvent<HTMLImageElement>) => {
-    console.log('Image failed to load:', imgSrc);
-    setImageLoading(false);
+    console.log("Image failed to load:", imgSrc);
     setImageError(true);
     if (onImageError) {
       onImageError(event.nativeEvent);
@@ -38,15 +29,18 @@ function GlyphCard({
   };
 
   const cardClasses = cn(
-    'card w-32 bg-base-100 shadow-sm hover:shadow-md transition-shadow',
-    onImageClick && 'cursor-pointer hover:scale-105 transition-transform',
+    "card w-32 bg-base-100 shadow-sm hover:shadow-md transition-shadow",
+    onImageClick && "cursor-pointer hover:scale-105 transition-transform",
     className
   );
 
   return (
     <div className={cardClasses} onClick={onImageClick}>
       <div className="card-body p-2">
-        <h2 className="card-title text-xs font-medium leading-tight" title={cardTitle}>
+        <h2
+          className="card-title text-xs font-medium leading-tight"
+          title={cardTitle}
+        >
           {cardTitle}
         </h2>
       </div>
@@ -58,7 +52,6 @@ function GlyphCard({
             src={imgSrc}
             alt={`字形 ${cardTitle}`}
             loading={loading}
-            onLoad={handleImageLoad}
             onError={handleError}
           />
         ) : (
@@ -69,9 +62,7 @@ function GlyphCard({
       </figure>
 
       <div className="p-2 bg-base-100 w-full">
-        <p className="text-center text-xs font-medium">
-          {sampleCount}例
-        </p>
+        <p className="text-center text-xs font-medium">{sampleCount}例</p>
       </div>
     </div>
   );
