@@ -1,0 +1,93 @@
+[
+  {
+    "department": "kessler",
+    "relatedTo": "stuff",
+    "name": "clsx",
+    "licensePeriod": "perpetual",
+    "material": "material",
+    "licenseType": "MIT",
+    "link": "git+https://github.com/lukeed/clsx.git",
+    "remoteVersion": "2.1.1",
+    "installedVersion": "2.1.1",
+    "definedVersion": "^2.1.1",
+    "author": "Luke Edwards luke.edwards05@gmail.com https://lukeed.com"
+  },
+  {
+    "department": "kessler",
+    "relatedTo": "stuff",
+    "name": "csv-parse",
+    "licensePeriod": "perpetual",
+    "material": "material",
+    "licenseType": "MIT",
+    "link": "https://github.com/adaltas/node-csv.git",
+    "remoteVersion": "6.1.0",
+    "installedVersion": "6.1.0",
+    "definedVersion": "^6.1.0",
+    "author": "David Worms <david@adaltas.com> (https://www.adaltas.com)"
+  },
+  {
+    "department": "kessler",
+    "relatedTo": "stuff",
+    "name": "next",
+    "licensePeriod": "perpetual",
+    "material": "material",
+    "licenseType": "MIT",
+    "link": "git+https://github.com/vercel/next.js.git",
+    "remoteVersion": "15.4.6",
+    "installedVersion": "15.4.6",
+    "definedVersion": "15.4.6",
+    "author": "n/a"
+  },
+  {
+    "department": "kessler",
+    "relatedTo": "stuff",
+    "name": "next-intl",
+    "licensePeriod": "perpetual",
+    "material": "material",
+    "licenseType": "MIT",
+    "link": "https://github.com/amannn/next-intl",
+    "remoteVersion": "4.3.5",
+    "installedVersion": "4.3.5",
+    "definedVersion": "^4.3.5",
+    "author": "Jan Amann <jan@amann.work>"
+  },
+  {
+    "department": "kessler",
+    "relatedTo": "stuff",
+    "name": "react",
+    "licensePeriod": "perpetual",
+    "material": "material",
+    "licenseType": "MIT",
+    "link": "git+https://github.com/facebook/react.git",
+    "remoteVersion": "19.1.0",
+    "installedVersion": "19.1.0",
+    "definedVersion": "19.1.0",
+    "author": "n/a"
+  },
+  {
+    "department": "kessler",
+    "relatedTo": "stuff",
+    "name": "react-dom",
+    "licensePeriod": "perpetual",
+    "material": "material",
+    "licenseType": "MIT",
+    "link": "git+https://github.com/facebook/react.git",
+    "remoteVersion": "19.1.0",
+    "installedVersion": "19.1.0",
+    "definedVersion": "19.1.0",
+    "author": "n/a"
+  },
+  {
+    "department": "kessler",
+    "relatedTo": "stuff",
+    "name": "tailwind-merge",
+    "licensePeriod": "perpetual",
+    "material": "material",
+    "licenseType": "MIT",
+    "link": "git+https://github.com/dcastil/tailwind-merge.git",
+    "remoteVersion": "3.3.1",
+    "installedVersion": "3.3.1",
+    "definedVersion": "^3.3.1",
+    "author": "Dany Castillo"
+  }
+]
