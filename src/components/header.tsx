@@ -1,20 +1,55 @@
-import Link from "next/link";
+"use client";
 
-function Header() {
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { HeaderProps } from '@/types/components';
+import SearchInput from './ui/search-input';
+import { cn } from '@/lib/utils';
+
+function Header({ 
+  title = 'HNG単字検索',
+  showSearch = true,
+  searchProps = {},
+  className 
+}: HeaderProps) {
+  const router = useRouter();
+
+  const handleSearch = (query: string) => {
+    if (query.trim()) {
+      router.push(`/query/${encodeURIComponent(query.charAt(0))}`);
+    }
+  };
+
+  const navbarClasses = cn(
+    'navbar bg-base-100 shadow-sm',
+    className
+  );
+
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className={navbarClasses}>
       <div className="flex-1">
-        <Link className="btn btn-ghost text-xl" href="/">HNG単字検索</Link>
+        <Link className="btn btn-ghost text-xl font-bold" href="/">
+          {title}
+        </Link>
       </div>
-      <div className="flex gap-2">
-        <input
-          type="text"
-          placeholder="検索"
-          className="input input-bordered w-24 md:w-auto"
-        />
-        {/* <Link className="btn btn-ghost" href="/">使い方</Link> */}
+      <div className="flex gap-2 items-center">
+        {showSearch && (
+          <SearchInput
+            onSearch={handleSearch}
+            placeholder="文字を入力"
+            size="sm"
+            {...searchProps}
+          />
+        )}
+        <Link 
+          className="btn btn-ghost btn-sm hidden md:flex" 
+          href="/#help"
+        >
+          使い方
+        </Link>
       </div>
     </div>
   );
 }
+
 export default Header;

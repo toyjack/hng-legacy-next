@@ -14,6 +14,42 @@ async function QueryEntryPage({
   const { entryChar } = await params;
   const decodedChar = decodeURIComponent(entryChar);
   const results = await searchEntries(decodedChar);
+
+  // 预处理所有需要显示的组件
+  const processedResults = await Promise.all(
+    results.results.map(async (result) => {
+      const bookTypeComponents = await Promise.all(
+        BookTypeList.map(async (item) => {
+          const filteredGlyphs = result.glyphs?.filter((glyph) => glyph.book_type === item.id) || [];
+          
+          if (filteredGlyphs.length === 0) {
+            return null;
+          }
+
+          const glyphCards = await Promise.all(
+            filteredGlyphs.map(async (glyph) => ({
+              key: `${glyph.book_id}-${glyph.glyph_id}`,
+              cardTitle: await getBookNameById(glyph.book_id),
+              imgSrc: `/images/${glyph.book_id}/${glyph.glyph_id}.png`,
+              sampleCount: glyph.sample_count,
+            }))
+          );
+
+          return {
+            categoryName: item.name,
+            categoryId: item.id,
+            glyphCards,
+          };
+        })
+      );
+
+      return {
+        result,
+        bookTypeComponents: bookTypeComponents.filter(Boolean),
+      };
+    })
+  );
+
   return (
     <div>
       <h2>検索結果</h2>
@@ -23,8 +59,8 @@ async function QueryEntryPage({
       <div>
         <div>{results.results.length}件の結果が見つかりました。</div>
       </div>
-      {results.results.map((result) => (
-        <React.Fragment key={result.id}>
+      {processedResults.map(({ result, bookTypeComponents }, index) => (
+        <React.Fragment key={result.id || index}>
           <div>
             <div>見出し：{result.entry}</div>
             <div>異体字：{result.variant}</div>
@@ -42,18 +78,16 @@ async function QueryEntryPage({
           <div>
             {/* 字形 */}
             <div>字形一覧:</div>
-            {BookTypeList.map((item) => (
-              <CardContainer title={item.name} key={item.id}>
-                {result.glyphs
-                  ?.filter((glyph) => glyph.book_type === item.id)
-                  .map(async (glyph, index) => (
-                     <GlyphCard
-                      key={index}
-                      cardTitle={await getBookNameById(glyph.book_id)}
-                      imgSrc={`/images/${glyph.book_id}/${glyph.glyph_id}.png`}
-                      sampleCount={glyph.sample_count}
-                    />
-                  ))}
+            {bookTypeComponents.map((category) => (
+              <CardContainer title={category.categoryName} key={category.categoryId}>
+                {category.glyphCards.map((cardData) => (
+                  <GlyphCard
+                    key={cardData.key}
+                    cardTitle={cardData.cardTitle}
+                    imgSrc={cardData.imgSrc}
+                    sampleCount={cardData.sampleCount}
+                  />
+                ))}
               </CardContainer>
             ))}
           </div>
